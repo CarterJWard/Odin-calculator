@@ -1,6 +1,27 @@
+html {
+    background-color: rgb(250, 235, 214);
+}
 button {
     height: 150px;
     width: 150px;
+    font-size: 32px;
+    border-radius: 20%;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: max-content;
+    margin: auto;
+    padding: 10px;
+    background-color: rgb(233, 220, 149);
+    border: 1px solid black;
+}
+
+header {
+    text-align: center;
 }
 
 #buttons {
@@ -13,4 +34,8 @@ button {
     display: flex;
     flex-direction: column;
     gap: 5px;
+}
+
+.op {
+    background-color: gray;
 }

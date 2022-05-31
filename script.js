@@ -1,7 +1,7 @@
 let first = 0;
 let second = 0;
-let sec = false;
 let op = "";
+let sec = false;
 
 const operate = () => {
     switch (op) {
@@ -14,50 +14,75 @@ const operate = () => {
         case "multi":
             first = first * second;;
             break;
-        case "divide":
-            if (first == 0 || second == 0) {
-                return 0;
+        case "div":
+            if (first == 0 || second == 0) { //Div by 0 handler
+                first = "Error"
             } else {
                 first = first / second;
             }
             break;
     }
-    sec = false;
-    update()
+    update(first)
+    second = 0
 }
 
-const update = () => {
-
-    let display = document.querySelector('#display')
-    if (sec) {
-        display.innerHTML = second
-        console.log(second)
-    } else {
-        display.innerHTML = first
-        console.log(first)
-    }
+const update = (num) => {
+    document.querySelector('#display').innerHTML = num
 }
 
+//Once the page loads add all of the functions to the buttons
 window.onload = () => {
+    //Setup Numbered Butttons
     for (i = 0; i <= 9; i++) {
         let temp = i; //Instance variable is required so query selector access correct Id's
         document.getElementById(temp.toString()).onclick = () => {
             if (sec) {
-                second = temp;
+                if (second != 0) {
+                    second = second * 10;
+                }
+                second = second + temp
+                update(second);
             } else {
-                first = temp;
+                if (first != 0) {
+                    first = first * 10
+                    console.log(first)
+                }
+                if (first == "Error") {
+                    first = 0
+                    second = 0
+                }
+                first = first + temp
+                console.log(first)
+                update(first)
             }
-            update();
+
         }
     }
+
+    //Setup Operator Buttons
     let buttons = ["add", "sub", 'multi', 'div']
     buttons.forEach(element => {
         document.querySelector('#' + element).onclick = () => {
-            op = element;
-            sec = true
+            if (sec) {
+                operate()
+                op = element
+            } else {
+                op = element
+                sec = true
+            }
+
         }
     });
+    //Setup Equals Buttons
     document.querySelector('#eq').onclick = () => {
-        operate();
+        operate()
+    }
+    //Setup Clear Button
+    document.querySelector('#clear').onclick = () => {
+        first = 0
+        second = 0
+        sec = false
+        op = ""
+        update(first)
     }
 }
